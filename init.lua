@@ -21,8 +21,12 @@ vim.opt.showcmd = true               -- Показывать команды вн
 vim.opt.showmode = true              -- Не показывать режим (например, -- INSERT --)
 
 -- Быстрые команды
-vim.g.mapleader = ' '                -- Устанавливаем пробел как leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = " "                -- Устанавливаем пробел как leader key
+vim.keymap.set("n", "<leader>e", "<CMD>Oil<CR>", { desc = "Open current directory" })
+-- vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+
+-- Буфер обмена
+vim.opt.clipboard = "unnamedplus"
 
 
 -- Отключаем стандартные отображения, которые могут отвлекать
