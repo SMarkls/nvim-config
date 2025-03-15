@@ -6,21 +6,30 @@ vim.keymap.set("n", "<s-Tab>", ":BufferLineCyclePrev<CR>")
 vim.keymap.set("n", "<leader>x", ":BufferLinePickClose<CR>")
 vim.keymap.set("n", "<c-x>", ":BufferLineCloseOthers<CR>")
 
-
 -- Работа с файлом
-vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Save file" }) --Сохранение файла
-vim.keymap.set("n", "<leader>ц", ":w<CR>", { desc = "Save file" }) --Сохранение файла
-vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Close file" }) --Закрытие файла
-vim.keymap.set("i", "jj", "<Esc>", { desc = "Switch to normal mode" }) --Выход из режима вставки
-vim.keymap.set("i", "оо", "<Esc>", { desc = "Switch to normal mode" }) --Выход из режима вставки
+vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла
+vim.keymap.set("n", "<leader>ц", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла
+vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Закрыть файл" }) --Закрытие файла
+vim.keymap.set(
+	"i",
+	"jj",
+	"<Esc>",
+	{ desc = "Выйти в нормальный режим из режима вставки" }
+) --Выход из режима вставки
+vim.keymap.set(
+	"i",
+	"оо",
+	"<Esc>",
+	{ desc = "Выйти в нормальный режим из режима вставки" }
+) --Выход из режима вставки
 
 -- Разделение экрана
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>") --Переместиться на верхнее окно
 vim.keymap.set("n", "<c-j>", ":wincmd j<CR>")
 vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
-vim.keymap.set("n", "|", ":vsplit<CR>", { desc = "Vertical Split" }) -- Вертикальное разделение окна
-vim.keymap.set("n", "\\", ":split<CR>", { desc = "Horizontal Split" }) -- Горизонтальное разделение окна
+vim.keymap.set("n", "|", ":vsplit<CR>", { desc = "Вертикальное разделение окна" })
+vim.keymap.set("n", "\\", ":split<CR>", { desc = "Горизонтальное разделение окна" })
 
 -- Локализация моушнов на русский язык
 vim.keymap.set("n", "л", "k")
@@ -33,6 +42,9 @@ vim.keymap.set("n", "и", "b")
 vim.keymap.set("n", "к", "r")
 vim.keymap.set("n", "в", "d")
 vim.keymap.set("n", "ч", "x")
+vim.keymap.set("n", "ф", "a")
+vim.keymap.set("n", "н", "y")
+vim.keymap.set("n", "з", "p")
 
 -- Прочее
 vim.keymap.set("n", "q", "") -- Отключение клавиши Q. стоит перебиндить куда-нибудь
