@@ -2,9 +2,19 @@ return {
 	"neovim/nvim-lspconfig",
 	config = function()
 		local lspconfig = require("lspconfig")
+		local configs = require("lspconfig/configs")
 		-- Здесь важно перечислить все LSP, которые мы используем
-		lspconfig.lua_ls.setup({})
-		lspconfig.gopls.setup({})
+		lspconfig.gopls.setup({
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true,
+					},
+					staticcheck = true,
+					gofumpt = true,
+				},
+			},
+		})
 
 		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 			virtual_text = false,

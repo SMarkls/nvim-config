@@ -14,5 +14,11 @@ return {
 			{ desc = "Поиск буфферов (открытых файлов)" }
 		)
 		vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Поиск подсказок" })
+		vim.keymap.set(
+			"n",
+			"<leader>fu",
+			':lua require("telescope.builtin").lsp_references()<CR>',
+			{ desc = "Поиск использований" }
+		)
 	end,
 }

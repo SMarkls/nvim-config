@@ -9,6 +9,7 @@ return {
 				typescript = { "prettier" },
 				javascriptreact = { "prettier" },
 				typescriptreact = { "prettier" },
+				go = { "goimports", "gofmt" },
 			},
 		})
 		vim.api.nvim_create_autocmd("BufWritePre", {
