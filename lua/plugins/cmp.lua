@@ -3,6 +3,8 @@ return {
 	{ "hrsh7th/cmp-buffer" },
 	{ "hrsh7th/cmp-path" },
 	{ "hrsh7th/cmp-cmdline" },
+	{ "hrsh7th/vim-vsnip" },
+	{ "hrsh7th/cmp-vsnip" },
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
@@ -57,6 +59,43 @@ return {
 					-- { name = 'snippy' }, -- For snippy users.
 				}, {
 					{ name = "buffer" },
+				}),
+				formatting = {
+					format = function(entry, vim_item)
+						-- Add icons
+						vim_item.kind = string.format("%s %s", vim_item.kind, vim_item.abbr)
+
+						-- Show source
+						vim_item.menu = ({
+							buffer = "[Buffer]",
+							nvim_lsp = "[LSP]",
+							vsnip = "[Snippet]",
+							path = "[Path]",
+						})[entry.source.name]
+
+						return vim_item
+					end,
+				},
+				-- Enable experimental features for better completion
+				experimental = {
+					ghost_text = true,
+				},
+			})
+
+			-- Set up cmdline completion differently
+			cmp.setup.cmdline("/", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = {
+					{ name = "buffer" },
+				},
+			})
+
+			cmp.setup.cmdline(":", {
+				mapping = cmp.mapping.preset.cmdline(),
+				sources = cmp.config.sources({
+					{ name = "path" },
+				}, {
+					{ name = "cmdline" },
 				}),
 			})
 		end,
