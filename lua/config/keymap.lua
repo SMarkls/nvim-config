@@ -1,5 +1,5 @@
 -- Навигация
-vim.keymap.set("n", "<leader>e", ":Neotree reveal toggle<CR>", { desc = "Open Neotree" })
+vim.keymap.set("n", "<leader>e", ":Neotree reveal toggle<CR>", { desc = "Открыть NeoTree" })
 
 -- Tabs (bufferline)
 vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>")

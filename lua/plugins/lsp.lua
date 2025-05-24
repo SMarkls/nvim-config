@@ -2,91 +2,24 @@ return {
 	"neovim/nvim-lspconfig",
 	config = function()
 		local lspconfig = require("lspconfig")
-		local configs = require("lspconfig/configs")
 		local capabilities = vim.tbl_deep_extend(
 			"force",
 			{},
 			vim.lsp.protocol.make_client_capabilities(),
 			require("cmp_nvim_lsp").default_capabilities()
 		)
+
 		-- Здесь важно перечислить все LSP, которые мы используем
-		lspconfig.ts_ls.setup({
-			filetypes = {
-				"javascript",
-				"javascriptreact",
-				"javascript.jsx",
-				"typescript",
-				"typescriptreact",
-				"typescript.tsx",
-			},
-			cmd = { "typescript-language-server", "--stdio" },
-			capabilities = capabilities,
-			settings = {
-				typescript = {
-					inlayHints = {
-						parameterNames = { enabled = "literals" },
-						parameterTypes = { enabled = true },
-						variableTypes = { enabled = true },
-						propertyDeclarationTypes = { enabled = true },
-						functionLikeReturnTypes = { enabled = true },
-						enumMemberValues = { enabled = true },
-					},
-				},
-				javascript = {
-					inlayHints = {
-						parameterNames = { enabled = "literals" },
-						parameterTypes = { enabled = true },
-						variableTypes = { enabled = true },
-						propertyDeclarationTypes = { enabled = true },
-						functionLikeReturnTypes = { enabled = true },
-						enumMemberValues = { enabled = true },
-					},
-				},
-			},
-		})
+    local servers = {
+      "ts_ls",
+      "gopls",
+      "lua_ls"
+    }
 
-		lspconfig.gopls.setup({
-			capabilities = capabilities,
-			settings = {
-				gopls = {
-					analyses = {
-						unusedparams = true,
-					},
-					staticcheck = true,
-					gofumpt = true,
-					hints = {
-						assignVariableTypes = true,
-						compositeLiteralFields = true,
-						compositeLiteralTypes = true,
-						constantValues = true,
-						functionTypeParameters = true,
-						parameterNames = true,
-						rangeVariableTypes = true,
-					},
-				},
-			},
-		})
-
-		lspconfig.lua_ls.setup({
-			capabilities = capabilities,
-			settings = {
-				Lua = {
-					diagnostics = {
-						globals = { "vim" },
-					},
-					workspace = {
-						library = vim.api.nvim_get_runtime_file("", true),
-						checkThirdParty = false,
-					},
-					telemetry = {
-						enable = false,
-					},
-					hint = {
-						enable = true,
-					},
-				},
-			},
-		})
+    for _, server in ipairs(servers) do
+      local module = require("plugins.LSP." .. server)
+      module.setup(capabilities, lspconfig)
+    end
 
 		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 			virtual_text = false,
@@ -137,6 +70,17 @@ return {
 				vim.keymap.set("n", "<Leader>lf", function()
 					vim.lsp.buf.format({ async = true })
 				end, { buffer = ev.buf, desc = "Форматировать файл" })
+
+        local client_id = ev.client_id or ev.data.client_id
+        local client = vim.lsp.get_client_by_id(client_id)
+        for _, v in ipairs(servers) do
+          if v == client.name then
+            local mod = require("plugins.LSP." .. v)
+            if type(mod.keybindings) == "function" then
+              mod.keybindings()
+            end
+          end
+        end
 			end,
 		})
 	end,

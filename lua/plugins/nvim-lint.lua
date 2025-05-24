@@ -7,6 +7,7 @@ return {
 			typescriptreact = { "eslint" },
 			javascript = { "eslint" },
 			javascriptreact = { "eslint" },
+      lua = { "selene" },
 		}
 		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 			callback = function()
