@@ -2,6 +2,7 @@ return {
 	"neovim/nvim-lspconfig",
 	config = function()
 		local lspconfig = require("lspconfig")
+    local langs = require"plugins.languages.langs"
 		local capabilities = vim.tbl_deep_extend(
 			"force",
 			{},
@@ -9,17 +10,6 @@ return {
 			require("cmp_nvim_lsp").default_capabilities()
 		)
 
-		-- Здесь важно перечислить все LSP, которые мы используем
-    local servers = {
-      "ts_ls",
-      "gopls",
-      "lua_ls"
-    }
-
-    for _, server in ipairs(servers) do
-      local module = require("plugins.LSP." .. server)
-      module.setup(capabilities, lspconfig)
-    end
 
 		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 			virtual_text = false,
@@ -73,15 +63,20 @@ return {
 
         local client_id = ev.client_id or ev.data.client_id
         local client = vim.lsp.get_client_by_id(client_id)
-        for _, v in ipairs(servers) do
-          if v == client.name then
-            local mod = require("plugins.LSP." .. v)
-            if type(mod.keybindings) == "function" then
-              mod.keybindings()
+        for _, lang in pairs(langs) do
+          if lang.lsp_name == client.name then
+            if type(lang.keybindings) == "function" then
+              lang.keybindings()
             end
           end
         end
 			end,
 		})
+
+    for _, lang in pairs(langs) do
+      if lang.lsp then
+        lang.lsp(capabilities, lspconfig)
+      end
+    end
 	end,
 }

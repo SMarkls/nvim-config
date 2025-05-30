@@ -1,5 +1,9 @@
+
 local M = {}
-function M.setup(capabilities, lspconfig)
+
+M.lsp_name="gopls"
+
+function M.lsp(capabilities, lspconfig)
   lspconfig.gopls.setup({
     capabilities = capabilities,
     settings = {
@@ -25,6 +29,12 @@ end
 
 function M.keybindings()
   vim.keymap.set("n", "<leader>b", ":DlvToggleBreakpoint <CR>", { desc = "Включить/отключить breakpoint" })
+end
+
+function M.formatter()
+  return {
+    go = { "goimports", "gofmt" },
+  }
 end
 
 return M;

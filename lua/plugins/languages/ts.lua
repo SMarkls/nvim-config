@@ -1,6 +1,9 @@
 
 local M = {}
-function M.setup(capabilities, lspconfig)
+
+M.lsp_name="ts_ls"
+
+function M.lsp(capabilities, lspconfig)
   lspconfig.ts_ls.setup({
   	filetypes = {
   		"javascript",
@@ -37,4 +40,22 @@ function M.setup(capabilities, lspconfig)
   })
 end
 
+
+function M.formatter()
+  return {
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescriptreact = { "prettier" },
+  }
+end
+
+function M.linter()
+ return {
+    typescript = { "eslint" },
+    typescriptreact = { "eslint" },
+    javascript = { "eslint" },
+    javascriptreact = { "eslint" },
+ }
+end
 return M;
