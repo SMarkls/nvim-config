@@ -3,7 +3,7 @@ return {
 	name = "catppuccin",
 	priority = 1000,
 	opts = {
-		transparent_background = true,
+		transparent_background = false,
 		dim_inactive = {
 			enabled = false, -- dims the background color of inactive window
 			shade = "dark",

@@ -20,19 +20,19 @@ return {
 			callback = function(ev)
 				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Объявление" })
+				--vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = ev.buf, desc = "Объявление" })
 				vim.keymap.set(
 					"n",
 					"K",
 					vim.lsp.buf.hover,
 					{ buffer = ev.buf, desc = "Отобразить сигнатуру" }
 				)
-				vim.keymap.set(
-					"n",
-					"gi",
-					vim.lsp.buf.implementation,
-					{ buffer = ev.buf, desc = "Имплементация" }
-				)
+			--	vim.keymap.set(
+			--		"n",
+			--		"gi",
+			--		vim.lsp.buf.implementation,
+			--		{ buffer = ev.buf, desc = "Имплементация" }
+			--	)
 				vim.keymap.set(
 					"n",
 					"<C-k>",

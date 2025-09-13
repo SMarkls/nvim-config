@@ -3,4 +3,5 @@ return {
   lua = require"plugins.languages.lua",
   ts = require"plugins.languages.ts",
   py = require"plugins.languages.py",
+  nix = require"plugins.languages.nix"
 }
