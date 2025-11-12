@@ -2,8 +2,8 @@ local M = {}
 
 M.lsp_name="nil"
 
-function M.lsp(capabilities, lspconfig)
-  lspconfig.nil_ls.setup({
+function M.lsp(capabilities)
+  vim.lsp.config[M.lsp_name]= {
     capabilities = capabilities,
     settings = {
       ['nil'] = {
@@ -12,7 +12,7 @@ function M.lsp(capabilities, lspconfig)
          },
       },
    }
-  })
+  }
 end
 
 function M.formatter()
