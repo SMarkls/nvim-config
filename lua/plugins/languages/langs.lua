@@ -5,4 +5,5 @@ return {
 	py = require("plugins.languages.py"),
 	nix = require("plugins.languages.nix"),
 	rust = require("plugins.languages.rust"),
+	c = require("plugins.languages.c"),
 }

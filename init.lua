@@ -44,6 +44,8 @@ vim.opt.fillchars = {
 	foldclose = "▶",
 }
 
+vim.opt.exrc = true
+
 -- Плагины
 require("config.lazy")
 require("config.keymap")
