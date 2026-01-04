@@ -16,32 +16,32 @@ local function ensure_dap_keymaps()
 	M._dap_keys_set = true
 end
 
-M.servers = {
-	["rust-analyzer"] = {
-		settings = {
-			["rust-analyzer"] = {
-				imports = {
-					granularity = {
-						group = "module",
-					},
-					prefix = "self",
-				},
-				cargo = {
-					buildScripts = {
-						enable = true,
-					},
-				},
-				procMacro = {
-					enable = true,
-				},
-			},
-		},
-		root_markers = { { "Config.toml" }, ".git" },
-		on_attach = function(_, bufnr)
-			ensure_dap_keymaps()
-			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-		end,
-	},
-}
+-- M.servers = {
+-- 	["rust-analyzer"] = {
+-- 		settings = {
+-- 			["rust-analyzer"] = {
+-- 				imports = {
+-- 					granularity = {
+-- 						group = "module",
+-- 					},
+-- 					prefix = "self",
+-- 				},
+-- 				cargo = {
+-- 					buildScripts = {
+-- 						enable = true,
+-- 					},
+-- 				},
+-- 				procMacro = {
+-- 					enable = true,
+-- 				},
+-- 			},
+-- 		},
+-- 		root_markers = { { "Config.toml" }, ".git" },
+-- 		on_attach = function(_, bufnr)
+-- 			ensure_dap_keymaps()
+-- 			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+-- 		end,
+-- 	},
+-- }
 
 return M

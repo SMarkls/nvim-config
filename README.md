@@ -14,7 +14,6 @@
 ## Плагины
 * Bufferline - табы, вкладки как в браузере
 * GitSigns - отображение, что было добавлено/изменено в рамках текущего индекса (`:Gitsigns`)
-* Neo-Tree - менеджер файловой системы (:Neotree)
 * LuaLine - строка состояния снизу, пишет про гит, ошибки и прочее
 * Telescope - поиск файлов, вхождений строк по проекту, подсказок и табов (`:Telescope`)
 * Cmp - подсказки в коде (выпадающие)
@@ -73,8 +72,8 @@
 "prettier", -- ts/js format
 "prettierd", -- ts/js format
 "ruff", -- python format lint lsp
-"selene", -- lua format
-"typescrpt-language-server", -- ts/js lsp
+"selene", -- lua lint
+"typescript-language-server", -- ts/js lsp
 ```
 
 ## Разработка на GoLang

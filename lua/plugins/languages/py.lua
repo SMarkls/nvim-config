@@ -60,8 +60,4 @@ M.formatters = {
 	},
 }
 
-M.linters = {
-	python = { "ruff" },
-}
-
 return M

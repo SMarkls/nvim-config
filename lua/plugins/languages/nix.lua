@@ -1,7 +1,7 @@
 local M = {}
 
 M.servers = {
-	["nil"] = {
+	["nil_ls"] = {
 		settings = {
 			["nil"] = {
 				formatting = {

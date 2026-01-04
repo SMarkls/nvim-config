@@ -31,7 +31,6 @@ vim.opt.clipboard = "unnamedplus" -- Буфер обмена работает т
 -- Отключаем стандартные отображения, которые могут отвлекать
 vim.opt.ruler = false
 vim.opt.showtabline = 0
-vim.opt.laststatus = 0
 
 -- Fillchars
 vim.opt.fillchars = {
