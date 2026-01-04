@@ -1,16 +1,16 @@
 return {
 	"stevearc/conform.nvim",
 	config = function()
-    local langs = require"plugins.languages.langs"
-    local formatters_by_ft = {}
-    for _, lang in pairs(langs) do
-      if type(lang.formatter) == "function" then 
-        local result = lang.formatter()
-        for ft, formatters in pairs(result) do
-          formatters_by_ft[ft] = formatters
-        end
-      end
-    end
+		local langs = require("plugins.languages.langs")
+		local formatters_by_ft = {}
+		for _, lang in pairs(langs) do
+			local formatters = lang.formatters or (type(lang.formatter) == "function" and lang.formatter())
+			if type(formatters) == "table" then
+				for ft, tools in pairs(formatters) do
+					formatters_by_ft[ft] = tools
+				end
+			end
+		end
 		require("conform").setup({
 			formatters_by_ft = formatters_by_ft,
 		})

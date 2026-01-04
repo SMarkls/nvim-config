@@ -2,67 +2,69 @@ return {
 	"neovim/nvim-lspconfig",
 	config = function()
 		local langs = require("plugins.languages.langs")
-		local capabilities = vim.tbl_deep_extend(
+		local base_capabilities = vim.tbl_deep_extend(
 			"force",
 			{},
 			vim.lsp.protocol.make_client_capabilities(),
 			require("cmp_nvim_lsp").default_capabilities()
 		)
-		capabilities.general.positionEncodings = { "utf-16" }
+		base_capabilities.general.positionEncodings = { "utf-16" }
 
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+		vim.diagnostic.config({
 			virtual_text = false,
+			update_in_insert = false,
+			severity_sort = true,
+			underline = true,
+			float = {
+				border = "rounded",
+				source = "if_many",
+			},
 		})
 
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-			callback = function(ev)
-				vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+		local function default_on_attach(_, bufnr)
+			vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+			local function map(lhs, rhs, desc)
+				vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+			end
+			map("K", vim.lsp.buf.hover, "Отобразить сигнатуру")
+			map("<Leader>D", vim.lsp.buf.type_definition, "Объявление типа")
+			map("<Leader>lr", vim.lsp.buf.rename, "Переименовать")
+			map("<Leader>la", vim.lsp.buf.code_action, "Код экшн")
+			vim.keymap.set("n", "<Leader>lf", function()
+				vim.lsp.buf.format({ async = true })
+			end, { buffer = bufnr, desc = "Форматировать файл" })
+		end
 
-				vim.keymap.set(
-					"n",
-					"K",
-					vim.lsp.buf.hover,
-					{ buffer = ev.buf, desc = "Отобразить сигнатуру" }
-				)
-				vim.keymap.set(
-					"n",
-					"<Leader>D",
-					vim.lsp.buf.type_definition,
-					{ buffer = ev.buf, desc = "Объявление типа" }
-				)
-				vim.keymap.set(
-					"n",
-					"<Leader>lr",
-					vim.lsp.buf.rename,
-					{ buffer = ev.buf, desc = "Переименовать" }
-				)
-				vim.keymap.set(
-					"n",
-					"<Leader>la",
-					vim.lsp.buf.code_action,
-					{ buffer = ev.buf, desc = "Код экшн" }
-				)
-				vim.keymap.set("n", "<Leader>lf", function()
-					vim.lsp.buf.format({ async = true })
-				end, { buffer = ev.buf, desc = "Форматировать файл" })
+		local server_definitions = {}
+		for _, lang in pairs(langs) do
+			if lang.servers then
+				for name, definition in pairs(lang.servers) do
+					server_definitions[name] = definition
+				end
+			end
+		end
 
-				local client_id = ev.data.client_id
-				local client = vim.lsp.get_client_by_id(client_id)
-				for _, lang in pairs(langs) do
-					if lang.lsp_name == client.name then
-						if type(lang.keybindings) == "function" then
-							lang.keybindings()
-						end
+		for name, definition in pairs(server_definitions) do
+			local opts
+			if type(definition) == "function" then
+				opts = definition(base_capabilities) or {}
+			elseif type(definition) == "table" then
+				opts = vim.tbl_deep_extend("force", {}, definition)
+			else
+				opts = {}
+			end
+
+			if opts.enabled ~= false then
+				opts.capabilities = vim.tbl_deep_extend("force", {}, base_capabilities, opts.capabilities or {})
+				local extra_attach = opts.on_attach
+				opts.on_attach = function(client, bufnr)
+					default_on_attach(client, bufnr)
+					if type(extra_attach) == "function" then
+						extra_attach(client, bufnr)
 					end
 				end
-			end,
-		})
-
-		for _, lang in pairs(langs) do
-			if type(lang.lsp) == "function" then
-				lang.lsp(capabilities)
-				vim.lsp.enable(lang.lsp_name)
+				vim.lsp.config(name, opts)
+				vim.lsp.enable(name)
 			end
 		end
 	end,

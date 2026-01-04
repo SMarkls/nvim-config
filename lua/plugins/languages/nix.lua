@@ -1,24 +1,19 @@
 local M = {}
 
-M.lsp_name="nil"
+M.servers = {
+	["nil"] = {
+		settings = {
+			["nil"] = {
+				formatting = {
+					command = { "nixfmt" },
+				},
+			},
+		},
+	},
+}
 
-function M.lsp(capabilities)
-  vim.lsp.config[M.lsp_name]= {
-    capabilities = capabilities,
-    settings = {
-      ['nil'] = {
-         formatting = {
-            command = { "nixfmt" },
-         },
-      },
-   }
-  }
-end
+M.formatters = {
+	nix = { "nixfmt" },
+}
 
-function M.formatter()
-  return {
-    go = { "nixfmt" },
-  }
-end
-
-return M;
+return M

@@ -1,10 +1,23 @@
 local M = {}
 
-M.lsp_name = "rust-analyzer"
+local function ensure_dap_keymaps()
+	if M._dap_keys_set then
+		return
+	end
+	vim.keymap.set(
+		"n",
+		"<leader>b",
+		":DapToggleBreakpoint <CR>",
+		{ desc = "Включить/отключить breakpoint" }
+	)
+	vim.keymap.set("n", "<F1>", ":DapStepInto <CR>", { desc = "Шаг с заходом" })
+	vim.keymap.set("n", "<F2>", ":DapStepOver <CR>", { desc = "Шаг с обходом" })
+	vim.keymap.set("n", "<F3>", ":DapStepOut <CR>", { desc = "Шаг с выходом" })
+	M._dap_keys_set = true
+end
 
-function M.lsp(capabilities)
-	vim.lsp.config[M.lsp_name] = {
-		capabilities = capabilities,
+M.servers = {
+	["rust-analyzer"] = {
 		settings = {
 			["rust-analyzer"] = {
 				imports = {
@@ -24,30 +37,11 @@ function M.lsp(capabilities)
 			},
 		},
 		root_markers = { { "Config.toml" }, ".git" },
-	}
-	vim.api.nvim_create_autocmd("LspAttach", {
-		callback = function(args)
-			local client = vim.lsp.get_client_by_id(args.data.client_id)
-			if client == nil then
-				return
-			end
-			if client.name == "rust-analyzer" then
-				vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-			end
+		on_attach = function(_, bufnr)
+			ensure_dap_keymaps()
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 		end,
-	})
-end
-
-function M.keybindings()
-	vim.keymap.set(
-		"n",
-		"<leader>b",
-		":DapToggleBreakpoint <CR>",
-		{ desc = "Включить/отключить breakpoint" }
-	)
-	vim.keymap.set("n", "<F1>", ":DapStepInto <CR>", { desc = "Шаг с заходом" })
-	vim.keymap.set("n", "<F2>", ":DapStepOver <CR>", { desc = "Шаг с обходом" })
-	vim.keymap.set("n", "<F3>", ":DapStepOut <CR>", { desc = "Шаг с выходом" })
-end
+	},
+}
 
 return M

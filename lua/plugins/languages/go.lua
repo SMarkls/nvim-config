@@ -1,10 +1,20 @@
 local M = {}
 
-M.lsp_name = "gopls"
+local function ensure_dap_keymaps()
+	if M._dap_keys_set then
+		return
+	end
+	vim.keymap.set(
+		"n",
+		"<leader>b",
+		":DlvToggleBreakpoint <CR>",
+		{ desc = "Включить/отключить breakpoint" }
+	)
+	M._dap_keys_set = true
+end
 
-function M.lsp(capabilities)
-	vim.lsp.config[M.lsp_name] = {
-		capabilities = capabilities,
+M.servers = {
+	gopls = {
 		settings = {
 			gopls = {
 				analyses = {
@@ -23,22 +33,14 @@ function M.lsp(capabilities)
 				},
 			},
 		},
-	}
-end
+		on_attach = function()
+			ensure_dap_keymaps()
+		end,
+	},
+}
 
-function M.keybindings()
-	vim.keymap.set(
-		"n",
-		"<leader>b",
-		":DlvToggleBreakpoint <CR>",
-		{ desc = "Включить/отключить breakpoint" }
-	)
-end
-
-function M.formatter()
-	return {
-		go = { "goimports", "gofmt" },
-	}
-end
+M.formatters = {
+	go = { "goimports", "gofmt" },
+}
 
 return M

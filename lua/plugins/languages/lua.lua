@@ -1,10 +1,7 @@
 local M = {}
 
-M.lsp_name = "lua_ls"
-
-function M.lsp(capabilities)
-	vim.lsp.config[M.lsp_name] = {
-		capabilities = capabilities,
+M.servers = {
+	lua_ls = {
 		settings = {
 			Lua = {
 				diagnostics = {
@@ -22,19 +19,15 @@ function M.lsp(capabilities)
 				},
 			},
 		},
-	}
-end
+	},
+}
 
-function M.formatter()
-	return {
-		lua = { "stylua" },
-	}
-end
+M.formatters = {
+	lua = { "stylua" },
+}
 
-function M.linter()
-	return {
-		lua = { "selene" },
-	}
-end
+M.linters = {
+	lua = { "selene" },
+}
 
 return M

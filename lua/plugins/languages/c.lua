@@ -1,10 +1,7 @@
 local M = {}
 
-M.lsp_name = "clangd"
-
-function M.lsp(capabilities)
-	vim.lsp.config[M.lsp_name] = {
-		capabilities = capabilities,
+M.servers = {
+	clangd = {
 		root_markers = {
 			"compile_commands.json",
 			"compile_flags.txt",
@@ -32,7 +29,7 @@ function M.lsp(capabilities)
 			completeUnimported = true,
 			clangdFileStatus = true,
 		},
-	}
-end
+	},
+}
 
 return M

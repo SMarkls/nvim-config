@@ -1,9 +1,7 @@
 local M = {}
 
-M.lsp_name = "ts_ls"
-
-function M.lsp(capabilities)
-	vim.lsp.config[M.lsp_name] = {
+M.servers = {
+	ts_ls = {
 		filetypes = {
 			"javascript",
 			"javascriptreact",
@@ -13,7 +11,6 @@ function M.lsp(capabilities)
 			"typescript.tsx",
 		},
 		cmd = { "typescript-language-server", "--stdio" },
-		capabilities = capabilities,
 		settings = {
 			typescript = {
 				inlayHints = {
@@ -36,25 +33,21 @@ function M.lsp(capabilities)
 				},
 			},
 		},
-	}
-end
+	},
+}
 
-function M.formatter()
-	return {
-		javascript = { "prettier", "biome" },
-		typescript = { "prettier", "biome" },
-		javascriptreact = { "prettier", "biome" },
-		typescriptreact = { "prettier", "biome" },
-	}
-end
+M.formatters = {
+	javascript = { "prettier", "biome" },
+	typescript = { "prettier", "biome" },
+	javascriptreact = { "prettier", "biome" },
+	typescriptreact = { "prettier", "biome" },
+}
 
-function M.linter()
-	return {
-		typescript = { "eslint" },
-		typescriptreact = { "eslint" },
-		javascript = { "eslint" },
-		javascriptreact = { "eslint" },
-	}
-end
+M.linters = {
+	typescript = { "eslint" },
+	typescriptreact = { "eslint" },
+	javascript = { "eslint" },
+	javascriptreact = { "eslint" },
+}
 
 return M
