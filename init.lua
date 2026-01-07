@@ -48,6 +48,3 @@ vim.opt.exrc = true
 -- Плагины
 require("config.lazy")
 require("config.keymap")
-
--- Настройка цветов
-vim.cmd([[colorscheme catppuccin]])
