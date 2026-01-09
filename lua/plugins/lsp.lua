@@ -26,7 +26,9 @@ return {
 			local function map(lhs, rhs, desc)
 				vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
 			end
-			map("K", vim.lsp.buf.hover, "Отобразить сигнатуру")
+			map("K", function()
+				vim.lsp.buf.hover({ border = "rounded" })
+			end, "Отобразить сигнатуру")
 			map("<Leader>D", vim.lsp.buf.type_definition, "Объявление типа")
 			map("<Leader>lr", vim.lsp.buf.rename, "Переименовать")
 			map("<Leader>la", vim.lsp.buf.code_action, "Код экшн")
