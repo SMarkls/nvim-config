@@ -4,12 +4,12 @@ return {
 	cmd = "Trouble",
 	keys = {
 		{
-			"<leader>aa",
+			"<leader>aA",
 			"<cmd>Trouble diagnostics toggle focus=true<cr>",
 			desc = "Список ошибок",
 		},
 		{
-			"<leader>aA",
+			"<leader>aa",
 			"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
 			desc = "Диагностика текущего буффера",
 		},

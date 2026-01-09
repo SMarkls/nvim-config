@@ -1,3 +1,4 @@
+-- Lazy expects a flat list of plugin specs, not a keyed table.
 return {
-	tokio = require("plugins.themes.tokyonight"),
+	require("plugins.themes.tokyonight"),
 }
