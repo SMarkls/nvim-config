@@ -46,5 +46,6 @@ vim.opt.fillchars = {
 vim.opt.exrc = true
 
 -- Плагины
+require("config.colorscheme")
 require("config.lazy")
 require("config.keymap")
