@@ -25,8 +25,8 @@ vim.opt.signcolumn = "yes"
 -- Быстрые команды
 vim.g.mapleader = " " -- Устанавливаем пробел как leader key
 
--- Буфер обмена
-vim.opt.clipboard = "unnamedplus" -- Буфер обмена работает только через TMux
+-- Буфер обмена (system clipboard через xclip/xsel/wl-copy)
+vim.opt.clipboard = "unnamedplus"
 
 -- Отключаем стандартные отображения, которые могут отвлекать
 vim.opt.ruler = false
@@ -44,6 +44,7 @@ vim.opt.fillchars = {
 }
 
 vim.opt.exrc = true
+vim.opt.secure = true
 
 -- Плагины
 require("config.colorscheme")

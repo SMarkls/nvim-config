@@ -1,21 +1,5 @@
 local M = {}
 
-local function ensure_dap_keymaps()
-	if M._dap_keys_set then
-		return
-	end
-	vim.keymap.set(
-		"n",
-		"<leader>b",
-		":DapToggleBreakpoint <CR>",
-		{ desc = "Включить/отключить breakpoint" }
-	)
-	vim.keymap.set("n", "<F1>", ":DapStepInto <CR>", { desc = "Шаг с заходом" })
-	vim.keymap.set("n", "<F2>", ":DapStepOver <CR>", { desc = "Шаг с обходом" })
-	vim.keymap.set("n", "<F3>", ":DapStepOut <CR>", { desc = "Шаг с выходом" })
-	M._dap_keys_set = true
-end
-
 M.servers = {
 	pyright = {
 		settings = {
@@ -34,15 +18,11 @@ M.servers = {
 				},
 			},
 		},
-		on_attach = function()
-			ensure_dap_keymaps()
-		end,
 	},
 	ruff = {
 		init_options = {
 			settings = {
 				configurationPreference = "filesystemFirst",
-				lineLength = 80,
 			},
 		},
 		on_attach = function(client)

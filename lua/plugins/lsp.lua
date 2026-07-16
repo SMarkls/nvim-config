@@ -37,14 +37,7 @@ return {
 			end, { buffer = bufnr, desc = "Форматировать файл" })
 		end
 
-		local server_definitions = {}
-		for _, lang in pairs(langs) do
-			if lang.servers then
-				for name, definition in pairs(lang.servers) do
-					server_definitions[name] = definition
-				end
-			end
-		end
+		local server_definitions = langs.servers()
 
 		for name, definition in pairs(server_definitions) do
 			local opts
