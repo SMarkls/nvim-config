@@ -1,3 +1,0 @@
-return {
-	"sebdah/vim-delve",
-}

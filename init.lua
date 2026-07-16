@@ -30,7 +30,11 @@ vim.opt.clipboard = "unnamedplus"
 
 -- Отключаем стандартные отображения, которые могут отвлекать
 vim.opt.ruler = false
-vim.opt.showtabline = 0
+-- 0.12: дефолтный 'statusline' — выражение, отображает diagnostics,
+-- progress и exit code терминала. lualine снят.
+-- bufferline рендерится в 'tabline' — включаем адаптивный показ.
+vim.opt.showtabline = 2
+vim.opt.winbar = ""
 
 -- Fillchars
 vim.opt.fillchars = {
@@ -46,7 +50,22 @@ vim.opt.fillchars = {
 vim.opt.exrc = true
 vim.opt.secure = true
 
--- Плагины
+-- Nvim 0.12: включение UI2 (экспериментальный новый message/cmdline UI).
+-- Убирает "Press ENTER", подсвечивает набираемую команду, pager как
+-- buffer+window. Документация: :help ui2
+pcall(function()
+	require("vim._core.ui2").enable()
+end)
+
+-- Inlay hints отключены на уровне LSP capabilities (lsp.lua чистит
+-- textDocument.inlayHint). Никаких глобальных stub'ов не нужно:
+-- vim.lsp.inlay_hint — обычный Lua-модуль, vim.lsp — таблица, но
+-- плагины получают оригинальный модуль через require('vim.lsp.inlay_hint'),
+-- поэтому присваивание vim.lsp.inlay_hint = ... бесполезно.
+-- Snacks.setup ниже сам ставит vim.ui.select = Snacks.picker.select,
+-- не переопределяем вручную.
+
+-- Плагины (vim.pack) + конфигурация остальных модулей
+require("config.pack")
 require("config.colorscheme")
-require("config.lazy")
 require("config.keymap")
