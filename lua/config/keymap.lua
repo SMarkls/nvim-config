@@ -1,9 +1,3 @@
--- Tabs (bufferline)
-vim.keymap.set("n", "<Tab>", ":BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<s-Tab>", ":BufferLineCyclePrev<CR>")
-vim.keymap.set("n", "<leader>x", ":BufferLinePickClose<CR>")
-vim.keymap.set("n", "<c-x>", ":BufferLineCloseOthers<CR>")
-
 -- Работа с файлом
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла
 vim.keymap.set("n", "<leader>ц", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла

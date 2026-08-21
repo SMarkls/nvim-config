@@ -51,14 +51,12 @@ vim.pack.add({
 	{ src = gh("folke/which-key.nvim") },
 	{ src = gh("akinsho/bufferline.nvim") },
 	{ src = gh("nvim-tree/nvim-web-devicons") },
-	-- lualine снят: используем новый дефолтный 'statusline' Nvim 0.12
 	{ src = gh("lewis6991/gitsigns.nvim") },
 	{ src = gh("okuuva/auto-save.nvim") },
 	{ src = gh("m4xshen/autoclose.nvim") },
 
-	-- Terminal / remote
+	-- Terminal
 	{ src = gh("akinsho/toggleterm.nvim") },
-	{ src = gh("amitds1997/remote-nvim.nvim") },
 	{ src = gh("nvim-lua/plenary.nvim") },
 	{ src = gh("MunifTanjim/nui.nvim") },
 	{ src = gh("nvim-telescope/telescope.nvim") },
@@ -87,6 +85,7 @@ local spec_files = vim.fn.glob(plugins_dir .. "/*.lua", true, true)
 local PRIORITY_FILES = {
 	"snacks.lua", -- priority=1000, lazy=false
 	"tokyonight.lua", -- priority=1000, lazy=false
+	"bufferline.lua", -- требует nvim-web-devicons
 	"treesitter.lua", -- инфраструктура парсинга
 	"languages/langs.lua", -- база для LSP-серверов
 	"lsp.lua", -- конфигурация LSP
