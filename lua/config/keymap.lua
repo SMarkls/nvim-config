@@ -1,7 +1,7 @@
 -- Работа с файлом
 vim.keymap.set("n", "<leader>w", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла
 vim.keymap.set("n", "<leader>ц", ":w<CR>", { desc = "Сохранить файл" }) --Сохранение файла
-vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Закрыть файл" }) --Закрытие файла
+vim.keymap.set("n", "<leader>q", "<Cmd>quit<CR>", { desc = "Закрыть файл", silent = true }) --Закрытие файла
 
 -- Разделение экрана
 vim.keymap.set("n", "<c-k>", ":wincmd k<CR>") --Переместиться на верхнее окно

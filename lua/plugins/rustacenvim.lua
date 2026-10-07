@@ -1,14 +1,8 @@
-return {
-	"mrcjkb/rustaceanvim",
-	version = "^6", -- Recommended
-	lazy = false, -- This plugin is already lazy
-	config = function()
-		vim.g.rustaceanvim = vim.tbl_deep_extend("force", {
-			tools = {
-				inlay_hints = {
-					auto = false,
-				},
-			},
-		}, vim.g.rustaceanvim or {})
-	end,
-}
+-- Rustaceanvim читает настройки при загрузке; подключается до vim.pack.add().
+vim.g.rustaceanvim = vim.tbl_deep_extend("force", {
+	server = {
+		on_attach = function(_, bufnr)
+			vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+		end,
+	},
+}, vim.g.rustaceanvim or {})

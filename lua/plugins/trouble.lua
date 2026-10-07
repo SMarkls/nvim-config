@@ -1,37 +1,8 @@
-return {
-	"folke/trouble.nvim",
-	opts = {},
-	cmd = "Trouble",
-	keys = {
-		{
-			"<leader>aA",
-			"<cmd>Trouble diagnostics toggle focus=true<cr>",
-			desc = "Список ошибок",
-		},
-		{
-			"<leader>aa",
-			"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-			desc = "Диагностика текущего буффера",
-		},
-		{
-			"<leader>cs",
-			"<cmd>Trouble symbols toggle focus=false<cr>",
-			desc = "Ошибки в символах",
-		},
-		{
-			"<leader>cl",
-			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-			desc = "LSP Definitions / references / ... (Trouble)",
-		},
-		{
-			"<leader>aL",
-			"<cmd>Trouble loclist toggle<cr>",
-			desc = "Location List (Trouble)",
-		},
-		{
-			"<leader>aF",
-			"<cmd>Trouble qflist toggle<cr>",
-			desc = "Быстрое исправление ошибок",
-		},
-	},
-}
+require("trouble").setup({})
+
+vim.keymap.set("n", "<leader>aA", "<Cmd>Trouble diagnostics toggle focus=true<CR>", { desc = "Список ошибок" })
+vim.keymap.set("n", "<leader>aa", "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Диагностика текущего буфера" })
+vim.keymap.set("n", "<leader>cs", "<Cmd>Trouble symbols toggle focus=false<CR>", { desc = "Ошибки в символах" })
+vim.keymap.set("n", "<leader>cl", "<Cmd>Trouble lsp toggle focus=false win.position=right<CR>", { desc = "LSP Definitions / references" })
+vim.keymap.set("n", "<leader>aL", "<Cmd>Trouble loclist toggle<CR>", { desc = "Location List" })
+vim.keymap.set("n", "<leader>aF", "<Cmd>Trouble qflist toggle<CR>", { desc = "Quickfix List" })

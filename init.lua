@@ -67,5 +67,4 @@ end)
 
 -- Плагины (vim.pack) + конфигурация остальных модулей
 require("config.pack")
-require("config.colorscheme")
 require("config.keymap")

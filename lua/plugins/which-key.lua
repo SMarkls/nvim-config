@@ -1,4 +1,1 @@
-return {
-	"folke/which-key.nvim",
-	opts = {},
-}
+require("which-key").setup({})
